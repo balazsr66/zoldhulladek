@@ -9,7 +9,7 @@ const services = [
     icon: Mountain,
     title: "Telektisztítás",
     desc: "Meredek, nehezen megközelíthető területek gyors és hatékony megtisztítása géppel.",
-    features: ["Akár 55°-os lejtő", "Bármilyen méret", "Gyökeres irtás is"],
+    features: ["Akár 60°-os lejtő", "Bármilyen méret", "Gyökeres irtás is"],
   },
   {
     icon: Scissors,
@@ -33,7 +33,7 @@ const services = [
 
 const stats = [
   { value: "500+", label: "Elvégzett projekt" },
-  { value: "55°", label: "Max. meredekség" },
+  { value: "60°", label: "Max. meredekség" },
   { value: "48h", label: "Visszahívás" },
   { value: "100%", label: "Elégedett ügyfél" },
 ]

@@ -24,8 +24,8 @@ const apiError = ref("");
 
 // contact info
 const contacts = [
-  { icon: Phone, text: "+36 30 123 4567", href: "tel:+36301234567" },
-  { icon: Mail, text: "info@greenmachpro.hu", href: "mailto:info@greenmachpro.hu" },
+  { icon: Phone, text: "+36 20 973 1980", href: "tel:+36209731980" },
+  { icon: Mail, text: "okorendszer@gmail.com", href: "mailto:okorendszer@gmail.com" },
   { icon: MapPin, text: "Budapest és környéke, egész Magyarország", href: "#" },
 ];
 
@@ -77,7 +77,7 @@ const submitForm = async () => {
 </style>
 
 <template>
-  <section class="py-24 lg:py-32 relative overflow-hidden" style="background: #0F1A12;">
+  <section id="contact" class="py-24 lg:py-32 relative overflow-hidden" style="background: #0F1A12;">
     <div class="absolute inset-0" style="background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(31,61,43,0.5) 0%, transparent 70%);"></div>
     <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(90deg, transparent, rgba(63,163,77,0.4), transparent);"></div>
 
@@ -167,7 +167,7 @@ const submitForm = async () => {
             </div>
 
             <button type="submit" class="w-full py-4 rounded-xl text-white font-semibold flex items-center justify-center gap-2 transition-all duration-200 hover:scale-[1.02] active:scale-95 mt-2" style="background: linear-gradient(135deg, #3FA34D, #2d8a3a);">
-              <span v-if="!loading">Ajánlatot kérek – Ingyen <ArrowRight size="20" /></span>
+              <span v-if="!loading">Ajánlatot kérek – Ingyen</span>
               <span v-else>Elküldés...</span>
             </button>
 

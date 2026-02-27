@@ -46,7 +46,7 @@ const scrollToSection = (href) => {
   if (!el) return
 
   const offset =
-    el.getBoundingClientRect().top + window.pageYOffset - 80
+    el.getBoundingClientRect().top + window.pageYOffset - 70
 
   window.scrollTo({ top: offset, behavior: "smooth" })
 
@@ -95,11 +95,11 @@ const scrollToSection = (href) => {
       <!-- Desktop Right Side (HIÁNYZÓ RÉSZ PÓTOLVA) -->
       <div class="hidden md:flex items-center gap-4">
         <a
-          href="tel:+36301234567"
+          href="tel:+36209731980"
           class="flex items-center gap-2 text-white font-medium hover:text-[#3FA34D] transition-colors"
         >
           <Phone :size="18" />
-          <span>+36 30 123 4567</span>
+          <span>+36 20 973 1980</span>
         </a>
 
         <button

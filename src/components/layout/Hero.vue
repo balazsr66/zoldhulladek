@@ -56,8 +56,8 @@ onMounted(() => {
     <!-- Parallax Background -->
     <div ref="bgRef" class="absolute inset-0 z-0 transition-transform will-change-transform">
       <img
-        src="https://images.unsplash.com/photo-1761248638316-8819fe522018?auto=format&fit=crop&w=1920&q=80"
-        alt="MDB LV600 PRO working on steep terrain"
+        src="/bozótirtás.jpg"
+        alt="MDB LV300 PRO working on steep terrain"
         class="w-full h-full object-cover scale-105"
       />
       <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30 md:via-black/50 md:to-transparent" />
@@ -74,7 +74,7 @@ onMounted(() => {
         <div ref="badgeRef" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#3FA34D]/20 border border-[#3FA34D]/30 backdrop-blur-sm mb-6">
           <span class="w-2 h-2 rounded-full bg-[#3FA34D] animate-pulse" />
           <span class="text-[#3FA34D] font-bold text-sm tracking-widest uppercase">
-            MDB LV600 PRO Technology
+            MDB LV300 PRO Technology
           </span>
         </div>
 
@@ -131,7 +131,7 @@ onMounted(() => {
 
         <div class="mt-4 text-center">
           <span class="text-xs text-gray-500 uppercase tracking-widest font-semibold">
-            MDB LV600 PRO Powered
+            MDB LV300 PRO Powered
           </span>
         </div>
       </div>

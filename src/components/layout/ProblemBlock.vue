@@ -2,9 +2,7 @@
 import { ref } from "vue"
 import { AlertTriangle, TrendingDown, Clock, Shield } from "lucide-vue-next"
 
-const problemImage =
-  "https://images.unsplash.com/photo-1768915579657-2f7b72c8843c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxvdmVyZ3Jvd24lMjBsYW5kJTIwYnJ1c2glMjBjbGVhcmluZyUyMGJlZm9yZSUyMGFmdGVyfGVufDF8fHx8MTc3MTc5OTkyM3ww&ixlib=rb-4.1.0&q=80&w=1080"
-
+const problemImage = "/nagy_bozot.jpg"
 const problems = [
   {
     icon: AlertTriangle,

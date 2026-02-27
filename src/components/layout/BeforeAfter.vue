@@ -6,6 +6,10 @@ const sliderPosition = ref(50);
 const isDragging = ref(false);
 const containerRef = ref(null);
 
+//images
+const beforeImg = "/beforeImg.jpg";
+const afterImg = "/afterImg.JPEG";
+
 const handleMove = (event) => {
   if (!containerRef.value) return;
 
@@ -78,7 +82,7 @@ onMounted(() => {
         <!-- After Image (Background) -->
         <div class="absolute inset-0 w-full h-full">
           <img 
-            src="https://images.unsplash.com/photo-1622775584644-3e179faea429?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbGVhcmVkJTIwZm9yZXN0JTIwbGFuZCUyMGNsZWFuJTIwZ3JvdW5kfGVufDF8fHx8MTc3MTgwMDU1OXww&ixlib=rb-4.1.0&q=80&w=1200" 
+            :src="afterImg"
             alt="After" 
             class="w-full h-full object-cover"
           />
@@ -93,7 +97,7 @@ onMounted(() => {
           :style="{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }"
         >
           <img 
-            src="https://images.unsplash.com/photo-1693590511973-06f642cf0d79?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxvdmVyZ3Jvd24lMjBkZW5zZSUyMGJydXNoJTIwZm9yZXN0fGVufDF8fHx8MTc3MTgwMDU2MHww&ixlib=rb-4.1.0&q=80&w=1200" 
+            :src="beforeImg"
             alt="Before" 
             class="w-full h-full object-cover"
           />

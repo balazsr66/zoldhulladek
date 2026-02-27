@@ -24,8 +24,8 @@ function getItemStyle(i) {
 
 const faqs = [
   {
-    q: "Milyen terepre alkalmas az MDB LV600 PRO?",
-    a: "A gép akár 55 fokos lejtőn is biztonságosan tud dolgozni..."
+    q: "Milyen terepre alkalmas az MDB LV300 PRO?",
+    a: "A gép akár 60 fokos lejtőn is biztonságosan tud dolgozni..."
   },
   {
     q: "Kell-e valaki a gép mellé a munkavégzés során?",
@@ -92,7 +92,7 @@ const faqs = [
           </p>
 
           <a
-            href="tel:+36301234567"
+            href="tel:+36209731980"
             class="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-xl font-medium transition-all duration-200 hover:scale-105"
             style="
               background:#1F3D2B;
@@ -101,7 +101,7 @@ const faqs = [
               font-size:15px;
             "
           >
-            +36 30 123 4567
+            +36 20 973 1980
           </a>
         </div>
 

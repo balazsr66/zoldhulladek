@@ -3,18 +3,18 @@ import { ref } from "vue";
 import { Zap, Gauge, ShieldCheck, Wifi, ArrowRight } from "lucide-vue-next";
 
 // Image és adatok
-const machineImage = "https://images.unsplash.com/photo-1675726061078-01a91334f26f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMG1hY2hpbmVyeSUyMHRlcnJhaW4lMjB2ZWdldGF0aW9uJTIwY3V0dGluZyUyMHByb2Zlc3Npb25hbHxlbnwxfHx8fDE3NzE3OTk5MjR8MA&ixlib=rb-4.1.0&q=80&w=1080";
+const machineImage = "/MDB_bozótirtás_területtisztítás1.jpg";
 
 const stats = [
-  { icon: Gauge, value: "55°", label: "Max. lejtési szög" },
-  { icon: Zap, value: "600 cm", label: "Munkaszélesség" },
+  { icon: Gauge, value: "60°", label: "Max. lejtési szög" },
+  { icon: Zap, value: "154 cm", label: "Munkaszélesség" },
   { icon: ShieldCheck, value: "RC", label: "Távirányítás" },
-  { icon: Wifi, value: "150m", label: "Irányítási hatótáv" },
+  { icon: Wifi, value: "100m", label: "Irányítási hatótáv" },
 ];
 
 const specs = [
-  ["Motor", "Kubota diesel, 24 LE"],
-  ["Súly", "630 kg"],
+  ["Motor", "Yanmar diesel, 25 LE"],
+  ["Súly", "950 kg"],
   ["Vágószerv", "Nyeles / aprítós fej"],
   ["Hajtás", "Kettős hidrosztatikus"],
   ["Kezelés", "Távirányítás – RC"],
@@ -42,7 +42,7 @@ const specs = [
           <div class="h-px w-6" :style="{ background: '#3FA34D' }"></div>
         </div>
         <h2 class="text-white uppercase mb-4" :style="{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 800, lineHeight: 1.1 }">
-          MDB LV600 PRO – <span :style="{ color: '#3FA34D' }">Ipari Erő</span>
+          MDB LV300 PRO – <span :style="{ color: '#3FA34D' }">Ipari Erő</span>
         </h2>
         <p class="text-gray-400 max-w-xl mx-auto" :style="{ fontFamily: 'Inter, sans-serif', fontSize: '17px', lineHeight: 1.7 }">
           A világ egyik legkorszerűbb távirányítású terepkezelő gépe. Ott dolgozik, ahol embernek nem szabad.
@@ -61,7 +61,7 @@ const specs = [
             <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between">
               <div class="flex items-center gap-3 px-4 py-3 rounded-xl" :style="{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(16px)', border: '1px solid rgba(63,163,77,0.3)' }">
                 <div class="w-2 h-2 rounded-full animate-pulse" :style="{ background: '#3FA34D' }"></div>
-                <span class="text-white text-sm font-semibold" :style="{ fontFamily: 'Inter, sans-serif' }">MDB LV600 PRO</span>
+                <span class="text-white text-sm font-semibold" :style="{ fontFamily: 'Inter, sans-serif' }">MDB LV300 PRO</span>
                 <span class="text-gray-400 text-xs" :style="{ fontFamily: 'Inter, sans-serif' }">Éles bevetésen</span>
               </div>
             </div>

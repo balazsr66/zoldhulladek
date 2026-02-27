@@ -30,7 +30,7 @@ const steps = [
     icon: Settings,
     number: "04",
     title: "Munkavégzés",
-    desc: "Az MDB LV600 PRO bevetésre kerül. Hatékony, gyors, biztonságos.",
+    desc: "Az MDB LV300 PRO bevetésre kerül. Hatékony, gyors, biztonságos.",
   },
   {
     icon: CheckCircle,

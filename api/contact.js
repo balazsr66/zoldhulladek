@@ -1,4 +1,4 @@
-import Resend from "resend";
+import {Resend} from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   try {
     await resend.emails.send({
       from: "info@greenmachpro.hu",
-      to: "te@pelda.hu", // ide érkezzen a lead
+      to: "balazsr66@gmail.com", // ide érkezzen a lead
       subject: `Új ajánlatkérés: ${name}`,
       html: `
         <h2>Új ajánlatkérés</h2>
