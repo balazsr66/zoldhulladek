@@ -1,5 +1,5 @@
-<script setup>
-import { ref, reactive } from "vue";
+﻿<script setup>
+import { computed, ref, reactive } from "vue";
 import { ArrowRight, Phone, Mail, MapPin } from "lucide-vue-next";
 
 // form state
@@ -7,7 +7,6 @@ const form = reactive({
   name: "",
   phone: "",
   email: "",
-  area: "",
   message: "",
 });
 
@@ -16,6 +15,7 @@ const errors = reactive({
   name: false,
   phone: false,
   email: false,
+  message: false,
 });
 
 const loading = ref(false);
@@ -30,13 +30,25 @@ const contacts = [
 ];
 
 const badges = ["Ingyenes felmérés", "24h visszahívás", "Átlátható ár"];
+const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+const isFormReady = computed(() => {
+  return (
+    form.name.trim().length > 0 &&
+    form.phone.trim().length > 0 &&
+    form.email.trim().length > 0 &&
+    EMAIL_REGEX.test(form.email.trim()) &&
+    form.message.trim().length > 0
+  );
+});
 
 // validation function
 const validate = () => {
   errors.name = !form.name.trim();
   errors.phone = !form.phone.trim();
-  errors.email = form.email && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email);
-  return !errors.name && !errors.phone && !errors.email;
+  errors.email = !form.email.trim() || !EMAIL_REGEX.test(form.email.trim());
+  errors.message = !form.message.trim();
+  return !errors.name && !errors.phone && !errors.email && !errors.message;
 };
 
 // submit form
@@ -52,13 +64,15 @@ const submitForm = async () => {
       body: JSON.stringify(form),
     });
 
-    if (!res.ok) throw new Error("Hiba a küldés során");
+    const data = await res.json().catch(() => null);
+    if (!res.ok) throw new Error(data?.error || "Hiba a küldés során");
 
     success.value = true;
+    apiError.value = "";
     Object.keys(form).forEach((k) => (form[k] = ""));
     setTimeout(() => (success.value = false), 4000);
   } catch (err) {
-    apiError.value = "Hiba történt. Próbáld újra.";
+    apiError.value = err instanceof Error ? err.message : "Hiba történt. Próbáld újra.";
   } finally {
     loading.value = false;
   }
@@ -125,14 +139,14 @@ const submitForm = async () => {
             <div class="grid sm:grid-cols-2 gap-4">
               <div>
                 <label for="contact-name" class="block text-gray-400 text-sm mb-1.5">Neve *</label>
-                <input id="contact-name" v-model="form.name" type="text" placeholder="Kiss János"
+                <input id="contact-name" v-model="form.name" type="text" required placeholder="Példa Név"
                   class="w-full px-4 py-3 rounded-xl text-white placeholder-gray-600 text-sm outline-none transition-all"
                   :class="{ 'border-green-400 border-2': errors.name }"
                   style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);" />
               </div>
               <div>
                 <label for="contact-phone" class="block text-gray-400 text-sm mb-1.5">Telefonszám *</label>
-                <input id="contact-phone" v-model="form.phone" type="tel" placeholder="+36 30 ..."
+                <input id="contact-phone" v-model="form.phone" type="tel" required placeholder="+36 30 ..."
                   class="w-full px-4 py-3 rounded-xl text-white placeholder-gray-600 text-sm outline-none transition-all"
                   :class="{ 'border-green-400 border-2': errors.phone }"
                   style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);" />
@@ -140,33 +154,26 @@ const submitForm = async () => {
             </div>
 
             <div>
-              <label for="contact-email" class="block text-gray-400 text-sm mb-1.5">Email cím</label>
-              <input id="contact-email" v-model="form.email" type="email" placeholder="email@example.com"
+              <label for="contact-email" class="block text-gray-400 text-sm mb-1.5">Email cím *</label>
+              <input id="contact-email" v-model="form.email" type="email" required placeholder="email@pelda.com"
                 class="w-full px-4 py-3 rounded-xl text-white placeholder-gray-600 text-sm outline-none transition-all"
                 :class="{ 'border-green-400 border-2': errors.email }"
                 style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);" />
             </div>
 
             <div>
-              <label for="contact-area" class="block text-gray-400 text-sm mb-1.5">Terület mérete (hektár)</label>
-              <select id="contact-area" v-model="form.area" class="w-full px-4 py-3 rounded-xl text-white text-sm outline-none transition-all cursor-pointer" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);">
-                <option value="">Válasszon...</option>
-                <option value="0.5">0.5 ha alatt</option>
-                <option value="1">0.5 - 1 ha</option>
-                <option value="3">1 - 3 ha</option>
-                <option value="5">3 - 5 ha</option>
-                <option value="10">5+ ha</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="contact-message" class="block text-gray-400 text-sm mb-1.5">Leírás</label>
-              <textarea id="contact-message" v-model="form.message" rows="4" placeholder="Terep típusa, növényzet, egyéb megjegyzés..."
+              <label for="contact-message" class="block text-gray-400 text-sm mb-1.5">Leírás *</label>
+              <textarea id="contact-message" v-model="form.message" rows="4" required placeholder="Terep típusa, terület mérete, növényzet, egyéb megjegyzés..."
+                :class="{ 'border-green-400 border-2': errors.message }"
                 class="w-full px-4 py-3 rounded-xl text-white placeholder-gray-600 text-sm outline-none resize-none transition-all"
                 style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);"></textarea>
             </div>
 
-            <button type="submit" class="w-full py-4 rounded-xl text-white font-semibold flex items-center justify-center gap-2 transition-all duration-200 hover:scale-[1.02] active:scale-95 mt-2" style="background: linear-gradient(135deg, #3FA34D, #2d8a3a);">
+            <button
+              type="submit"
+              :disabled="loading || !isFormReady"
+              class="w-full py-4 rounded-xl text-white font-semibold flex items-center justify-center gap-2 transition-all duration-200 hover:scale-[1.02] active:scale-95 mt-2 bg-gradient-to-br from-[#3FA34D] to-[#2d8a3a] disabled:from-gray-500 disabled:to-gray-600 disabled:cursor-not-allowed disabled:hover:scale-100"
+            >
               <span v-if="!loading">Ajánlatot kérek - Ingyen</span>
               <span v-else>Elküldés...</span>
             </button>

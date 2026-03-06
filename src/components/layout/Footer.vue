@@ -1,10 +1,10 @@
-﻿<script setup>
+<script setup>
 import { Facebook, Instagram, Phone, Mail, MapPin } from "lucide-vue-next"
 
 const links = [
-  { name: "TelektisztÃ­tÃ¡s", href: "#services" },
-  { name: "BozÃ³tirtÃ¡s", href: "#services" },
-  { name: "ZÃ¶ldhulladÃ©k kezelÃ©s", href: "#services" },
+  { name: "Telektisztítás", href: "#services" },
+  { name: "Bozótirtás", href: "#services" },
+  { name: "Zöldhulladék kezelés", href: "#services" },
 ]
 
 const scrollToSection = (href) => {
@@ -30,12 +30,12 @@ const currentYear = new Date().getFullYear()
         <!-- Logo & Info -->
         <div class="space-y-6">
           <a href="#" @click.prevent="scrollToTop" class="text-3xl font-bold tracking-tighter text-white block">
-            Ã–KO<span class="text-[#3FA34D]">RENDSZER</span>
+            ÖKO<span class="text-[#3FA34D]">RENDSZER</span>
           </a>
 
           <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
-            ProfesszionÃ¡lis telektisztÃ­tÃ¡s, bozÃ³tirtÃ¡s Ã©s zÃ¶ldhulladÃ©k kezelÃ©s.
-            MDB LV300 PRO tÃ¡virÃ¡nyÃ­tÃ¡sos munkagÃ©pÃ¼nkkel a legmeredekebb terepen is biztonsÃ¡gosan dolgozunk.
+            Professzionális telektisztítás, bozótirtás és zöldhulladék kezelés.
+            MDB LV300 PRO távirányításos munkagépünkkel a legmeredekebb terepen is biztonságosan dolgozunk.
           </p>
 
           <div class="flex gap-4">
@@ -44,7 +44,7 @@ const currentYear = new Date().getFullYear()
               target="_blank"
               rel="noopener noreferrer"
               class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#3FA34D] transition-colors"
-              aria-label="Facebook oldal megnyitÃ¡sa"
+              aria-label="Facebook oldal megnyitása"
             >
               <Facebook :size="20" aria-hidden="true" focusable="false" />
             </a>
@@ -54,7 +54,7 @@ const currentYear = new Date().getFullYear()
               target="_blank"
               rel="noopener noreferrer"
               class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#3FA34D] transition-colors"
-              aria-label="Instagram oldal megnyitÃ¡sa"
+              aria-label="Instagram oldal megnyitása"
             >
               <Instagram :size="20" aria-hidden="true" focusable="false" />
             </a>
@@ -63,7 +63,7 @@ const currentYear = new Date().getFullYear()
 
         <!-- Quick Links -->
         <div>
-          <h3 class="text-lg font-bold mb-6">SzolgÃ¡ltatÃ¡sok</h3>
+          <h3 class="text-lg font-bold mb-6">Szolgáltatások</h3>
 
           <ul class="space-y-4 text-gray-400 text-sm">
             <li v-for="link in links" :key="link.name" class="hover:text-[#3FA34D] transition-colors">
@@ -80,8 +80,8 @@ const currentYear = new Date().getFullYear()
             <li class="flex items-start gap-3">
               <MapPin class="text-[#3FA34D] shrink-0" :size="20" />
               <span>
-                1164 Budapest, CukornÃ¡d utca 63. <br />
-                KiszÃ¡llÃ¡s Budapesten Ã©s kÃ¶rnyÃ©kÃ©n!
+                1164 Budapest, Cukornád utca 63. <br />
+                Kiszállás Budapesten és környékén!
               </span>
             </li>
 
@@ -110,18 +110,17 @@ const currentYear = new Date().getFullYear()
 
       <!-- Bottom Bar -->
       <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-4">
-        <p>&copy; {{ currentYear }} Ã–koRendszer. Minden jog fenntartva.</p>
+        <p>&copy; {{ currentYear }} ÖkoRendszer. Minden jog fenntartva.</p>
 
         <div class="flex gap-6">
           <a href="#" class="hover:text-white transition-colors">
-            AdatvÃ©delmi tÃ¡jÃ©koztatÃ³
+            Adatvédelmi tájékoztató
           </a>
           <a href="#" class="hover:text-white transition-colors">
-            ÃSZF
+            ÁSZF
           </a>
         </div>
       </div>
     </div>
   </footer>
 </template>
-

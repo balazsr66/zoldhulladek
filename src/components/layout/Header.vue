@@ -15,6 +15,8 @@ import {
   DialogPortal,
   DialogOverlay,
   DialogContent,
+  DialogTitle,
+  DialogDescription,
 } from "reka-ui"
 
 const isScrolled = ref(false)
@@ -162,6 +164,11 @@ onUnmounted(() => {
             class="fixed top-0 right-0 z-[70] h-full w-[min(85vw,320px)] bg-[#1A1A1A] text-white px-6 pb-6 flex flex-col gap-6 shadow-2xl"
             style="padding-top: calc(env(safe-area-inset-top) + 1rem);"
           >
+            <DialogTitle class="sr-only">Mobil menü</DialogTitle>
+            <DialogDescription class="sr-only">
+              Fő navigációs menü az oldal szekcióihoz.
+            </DialogDescription>
+
             <a
               v-for="link in navLinks"
               :key="link.name"
