@@ -71,18 +71,18 @@ export default async function handler(req, res) {
 
   try {
     await resend.emails.send({
-      from: `Ökorendszer <${CONTACT_FROM_EMAIL}>`,
+      from: `Zoldhulladek.com <${CONTACT_FROM_EMAIL}>`,
       to: CONTACT_TO_EMAIL,
-      reply_to: email,
+      replyTo: email,
+      headers: {
+        "Reply-To": email,
+      },
       subject,
       html: `
         <h2>Új ajánlatkérés érkezett</h2>
         <p><strong>Név:</strong> ${safeName}</p>
         <p><strong>Email:</strong> ${safeEmail}</p>
         <p><strong>Telefonszám:</strong> ${safePhone}</p>
-        <p><strong>Helyszín:</strong> ${safeLocation}</p>
-        <p><strong>Telekméret:</strong> ${safeLotSize}</p>
-        <p><strong>Szolgáltatás:</strong> ${safeService}</p>
         <p><strong>Üzenet:</strong><br />${safeMessage}</p>
       `,
       text: [
@@ -90,9 +90,6 @@ export default async function handler(req, res) {
         `Név: ${name}`,
         `Email: ${email}`,
         `Telefonszám: ${phone}`,
-        `Helyszín: ${location}`,
-        `Telekméret: ${lotSize}`,
-        `Szolgáltatás: ${service}`,
         `Üzenet: ${message}`,
       ].join("\n"),
     })
