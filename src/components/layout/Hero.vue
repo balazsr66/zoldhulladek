@@ -70,7 +70,7 @@ const scrollToContact = () => {
       class="container relative z-10 mx-auto px-4 md:px-6 h-full min-h-[calc(100svh-env(safe-area-inset-top)-4rem)] md:min-h-0 flex flex-col md:flex-row items-center justify-center md:justify-between gap-10 md:gap-12 pt-14 pb-8 md:pt-20 md:pb-0"
     >
       <!-- Left Column -->
-      <div class="flex flex-col flex-1 w-full max-w-2xl h-full min-h-[420px] pt-6 text-center md:text-left md:h-auto md:min-h-0 md:pt-0">
+      <div class="flex flex-col flex-1 w-full max-w-2xl h-full min-h-[420px] pt-4 text-center md:text-left md:h-auto md:min-h-0 md:pt-0">
         <!-- Badge -->
         <div class="hidden items-center gap-2 px-4 py-2 rounded-full bg-[#3FA34D]/20 border border-[#3FA34D]/30 backdrop-blur-sm mb-6">
           <span class="w-2 h-2 rounded-full bg-[#3FA34D] animate-pulse" />
@@ -93,7 +93,7 @@ const scrollToContact = () => {
         </p>
 
         <!-- CTA Buttons -->
-        <div class="hero-reveal hero-reveal-3 mt-auto mb-20 pt-3 flex flex-col sm:flex-row items-center gap-8 md:gap-4 justify-center md:mt-0 md:mb-0 md:pt-0 md:justify-start">
+        <div class="hero-reveal hero-reveal-3 mt-auto mb-14 pt-3 flex flex-col sm:flex-row items-center gap-8 md:gap-4 justify-center md:mt-0 md:mb-0 md:pt-0 md:justify-start">
           <button
             type="button"
             @click="scrollToContact"

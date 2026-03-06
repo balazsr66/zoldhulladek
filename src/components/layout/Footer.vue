@@ -12,7 +12,9 @@ const scrollToSection = (href) => {
   const el = document.getElementById(id)
   if (!el) return
 
-  const offset = el.getBoundingClientRect().top + window.pageYOffset - 70
+  const headerEl = document.querySelector('[data-site-header="true"]')
+  const headerHeight = headerEl instanceof HTMLElement ? headerEl.getBoundingClientRect().height : 70
+  const offset = el.getBoundingClientRect().top + window.pageYOffset - headerHeight
   window.scrollTo({ top: offset, behavior: "smooth" })
 }
 
