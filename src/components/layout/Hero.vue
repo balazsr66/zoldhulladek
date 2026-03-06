@@ -24,6 +24,17 @@ const features = [
   "Teljes zöldhulladék zúzás"
 ]
 
+const scrollToContact = () => {
+  const el = document.getElementById("contact")
+  if (!el) return
+
+  const headerEl = document.querySelector('[data-site-header="true"]')
+  const headerHeight = headerEl instanceof HTMLElement ? headerEl.getBoundingClientRect().height : 70
+  const offset = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - 12
+
+  window.scrollTo({ top: offset, behavior: "smooth" })
+}
+
 // Scroll-trigger animációs setup
 onMounted(() => {
   const setupAnim = (elRef, opts) => {
@@ -42,29 +53,37 @@ onMounted(() => {
 </script>
 
 <template>
-  <section ref="sectionRef" class="relative h-[100vh] min-h-[700px] w-full overflow-hidden flex items-center justify-center">
+  <section
+    ref="sectionRef"
+    class="relative w-full overflow-hidden flex items-center justify-center min-h-[100svh] md:h-[100vh] md:min-h-[700px] pt-[calc(env(safe-area-inset-top)+4rem)] md:pt-0"
+  >
 
     <!-- Background -->
     <div class="absolute inset-0 z-0">
-      <img
-        src="/bozótirtás.webp"
-        alt="MDB LV300 PRO robot bozótot írt"
-        width="1600"
-        height="1008"
-        fetchpriority="high"
-        loading="eager"
-        decoding="async"
-        class="w-full h-full object-cover scale-105"
-      />
+      <picture class="block w-full h-full">
+        <source media="(max-width: 767px)" srcset="/mdb_hero_mobile.webp" type="image/webp" />
+        <img
+          src="/bozótirtás.webp"
+          alt="MDB LV300 PRO bozótirtás meredek terepen"
+          width="1600"
+          height="1008"
+          fetchpriority="high"
+          loading="eager"
+          decoding="async"
+          class="w-full h-full object-cover object-[76%_35%] md:object-center scale-105"
+        />
+      </picture>
       <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30 md:via-black/50 md:to-transparent" />
       <div class="absolute inset-0 bg-gradient-to-t from-[#1F3D2B]/80 to-transparent opacity-60 mix-blend-multiply" />
     </div>
 
     <!-- Content -->
-    <div class="container relative z-10 mx-auto px-4 md:px-6 h-full flex flex-col md:flex-row items-center justify-center md:justify-between gap-12 pt-20">
+    <div
+      class="container relative z-10 mx-auto px-4 md:px-6 h-full min-h-[calc(100svh-env(safe-area-inset-top)-4rem)] md:min-h-0 flex flex-col md:flex-row items-center justify-center md:justify-between gap-10 md:gap-12 pt-14 pb-8 md:pt-20 md:pb-0"
+    >
 
       <!-- Left Column -->
-      <div class="flex-1 max-w-2xl text-center md:text-left">
+      <div class="flex flex-col flex-1 w-full max-w-2xl h-full min-h-[420px] pt-6 text-center md:text-left md:h-auto md:min-h-0 md:pt-0">
 
         <!-- Badge -->
         <div ref="badgeRef" class="hidden items-center gap-2 px-4 py-2 rounded-full bg-[#3FA34D]/20 border border-[#3FA34D]/30 backdrop-blur-sm mb-6">
@@ -75,7 +94,7 @@ onMounted(() => {
         </div>
 
         <!-- Headline -->
-        <h1 ref="headlineRef" class="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6 tracking-tight">
+        <h1 ref="headlineRef" class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-5 md:mb-6 tracking-tight">
           EXTRÉM TEREP, <br />
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#3FA34D] to-[#86efac]">
             TÖKÉLETES EREDMÉNY
@@ -83,13 +102,18 @@ onMounted(() => {
         </h1>
 
         <!-- Description -->
-        <p ref="descRef" class="text-lg md:text-xl text-gray-300 mb-8 max-w-lg mx-auto md:mx-0 leading-relaxed font-light">
+        <p ref="descRef" class="text-base sm:text-lg md:text-xl text-gray-300 mb-6 md:mb-8 max-w-lg mx-auto md:mx-0 leading-relaxed font-light">
           Professzionális telektisztítás, bozótirtás és zöldhulladék kezelés távirányításos technológiával, meredek rézsűkön is.
         </p>
 
         <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-          <button ref="ctaRef" class="bg-[#3FA34D] hover:bg-[#348a40] text-white px-8 py-4 rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(63,163,77,0.4)] hover:shadow-[0_0_30px_rgba(63,163,77,0.6)] transition-all transform hover:-translate-y-1 flex items-center gap-3">
+        <div class="mt-auto mb-20 pt-3 flex flex-col sm:flex-row items-center gap-8 md:gap-4 justify-center md:mt-0 md:mb-0 md:pt-0 md:justify-start">
+          <button
+            type="button"
+            @click="scrollToContact"
+            ref="ctaRef"
+            class="bg-[#3FA34D] hover:bg-[#348a40] text-white px-8 py-4 rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(63,163,77,0.4)] hover:shadow-[0_0_30px_rgba(63,163,77,0.6)] transition-all transform hover:-translate-y-1 flex items-center gap-3"
+          >
             Kérjen ajánlatot!
             <ArrowRight :size="20" />
           </button>
@@ -135,10 +159,11 @@ onMounted(() => {
     </div>
 
     <!-- Scroll Indicator -->
-    <div ref="scrollRef" class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+    <div ref="scrollRef" class="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2">
       <span class="text-white/50 text-xs uppercase tracking-widest">Görgessen lejjebb</span>
       <div class="w-0.5 h-12 bg-gradient-to-b from-[#3FA34D] to-transparent rounded-full" />
     </div>
 
   </section>
 </template>
+

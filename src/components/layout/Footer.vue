@@ -16,6 +16,10 @@ const scrollToSection = (href) => {
   window.scrollTo({ top: offset, behavior: "smooth" })
 }
 
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" })
+}
+
 const currentYear = new Date().getFullYear()
 </script>
 
@@ -25,7 +29,7 @@ const currentYear = new Date().getFullYear()
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
         <!-- Logo & Info -->
         <div class="space-y-6">
-          <a href="#" class="text-3xl font-bold tracking-tighter text-white block">
+          <a href="#" @click.prevent="scrollToTop" class="text-3xl font-bold tracking-tighter text-white block">
             ÖKO<span class="text-[#3FA34D]">RENDSZER</span>
           </a>
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.svg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Professzionális telektisztítás, bozótirtás és zöldhulladék-kezelés korszerű gépparkkal. Meredek terepen is hatékony munkavégzés, gyors kiszállás és megbízható kivitelezés.">
     <link rel="canonical" href="https://zoldhulladek.com/">
     <meta property="og:locale" content="hu_HU">
@@ -19,7 +19,8 @@
     <meta name="twitter:description" content="Professzionális telektisztítás, bozótirtás és zöldhulladék-kezelés korszerű gépparkkal. Meredek terepen is hatékony munkavégzés, gyors kiszállás és megbízható kivitelezés.">
     <meta name="twitter:image" content="https://zoldhulladek.com/bozótirtás.webp">
     <link rel="preload" href="/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/bozótirtás.webp" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="/mdb_hero_mobile.webp" as="image" type="image/webp" media="(max-width: 767px)" fetchpriority="high">
+    <link rel="preload" href="/bozótirtás.webp" as="image" type="image/webp" media="(min-width: 768px)" fetchpriority="high">
     <style>
       html, body, #app { min-height: 100%; }
       body {
@@ -28,8 +29,12 @@
         color: #fff;
         font-family: "InterVariable", "Inter", sans-serif;
         font-optical-sizing: auto;
+        overflow-x: hidden;
       }
-      #app { min-height: 100vh; }
+      #app {
+        min-height: 100vh;
+        min-height: 100svh;
+      }
     </style>
     <title>Telektisztítás és bozótirtás - zoldhulladek.com</title>
   </head>
@@ -38,3 +43,4 @@
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
+

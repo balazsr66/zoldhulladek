@@ -1,5 +1,4 @@
-<script setup>
-import { ref } from "vue";
+﻿<script setup>
 import { Zap, Gauge, ShieldCheck, Wifi, ArrowRight } from "lucide-vue-next";
 
 // Image és adatok
@@ -20,6 +19,17 @@ const specs = [
   ["Kezelés", "Távirányítás - RC"],
   ["Kezelő szükséges", "Nem kell a gép mellé"],
 ];
+
+const scrollToContact = () => {
+  const el = document.getElementById("contact");
+  if (!el) return;
+
+  const headerEl = document.querySelector('[data-site-header="true"]');
+  const headerHeight = headerEl instanceof HTMLElement ? headerEl.getBoundingClientRect().height : 70;
+  const offset = el.getBoundingClientRect().top + window.pageYOffset - headerHeight - 12;
+
+  window.scrollTo({ top: offset, behavior: "smooth" });
+};
 </script>
 
 <template>
@@ -126,9 +136,9 @@ const specs = [
             </div>
           </div>
 
-          <a href="#contact" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-semibold transition-all duration-200 hover:scale-105"
+          <a href="#contact" @click.prevent="scrollToContact" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-semibold transition-all duration-200 hover:scale-105"
             :style="{ background: 'linear-gradient(135deg, #3FA34D, #2d8a3a)', fontFamily: 'Inter, sans-serif', fontSize: '16px', boxShadow: '0 8px 32px rgba(63,163,77,0.3)' }">
-            Foglaljon gépbemutatót
+            Kapcsolatfelvétel
             <ArrowRight size="18"/>
           </a>
         </div>
@@ -136,3 +146,4 @@ const specs = [
     </div>
   </section>
 </template>
+
