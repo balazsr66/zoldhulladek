@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import { MoveHorizontal } from "lucide-vue-next";
 
@@ -7,8 +7,8 @@ const isDragging = ref(false);
 const containerRef = ref(null);
 
 //images
-const beforeImg = "/beforeImg.jpg";
-const afterImg = "/afterImg.JPEG";
+const beforeImg = "/beforeImg.webp";
+const afterImg = "/afterImg.webp";
 
 const handleMove = (event) => {
   if (!containerRef.value) return;
@@ -81,11 +81,7 @@ onMounted(() => {
       >
         <!-- After Image (Background) -->
         <div class="absolute inset-0 w-full h-full">
-          <img 
-            :src="afterImg"
-            alt="After" 
-            class="w-full h-full object-cover"
-          />
+          <img :src="afterImg" alt="After" loading="lazy" decoding="async" class="w-full h-full object-cover" />
           <div class="absolute top-8 right-8 bg-[#3FA34D]/90 backdrop-blur-md text-white px-4 py-2 rounded-lg font-bold text-sm uppercase tracking-wider">
             Utána
           </div>
@@ -96,11 +92,7 @@ onMounted(() => {
           class="absolute inset-0 w-full h-full overflow-hidden"
           :style="{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }"
         >
-          <img 
-            :src="beforeImg"
-            alt="Before" 
-            class="w-full h-full object-cover"
-          />
+          <img :src="beforeImg" alt="Before" loading="lazy" decoding="async" class="w-full h-full object-cover" />
           <div class="absolute top-8 left-8 bg-black/60 backdrop-blur-md text-white px-4 py-2 rounded-lg font-bold text-sm uppercase tracking-wider">
             Előtte
           </div>

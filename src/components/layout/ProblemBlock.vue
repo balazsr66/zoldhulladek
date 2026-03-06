@@ -1,8 +1,8 @@
-<script setup>
+﻿<script setup>
 import { ref } from "vue"
 import { AlertTriangle, TrendingDown, Clock, Shield } from "lucide-vue-next"
 
-const problemImage = "/nagy_bozot.jpg"
+const problemImage = "/nagy_bozot.webp"
 const problems = [
   {
     icon: AlertTriangle,
@@ -12,7 +12,7 @@ const problems = [
   {
     icon: TrendingDown,
     title: "Értékcsökkenés",
-    desc: "A becserjésedett telek értéke akár 30–40%-kal is csökkenhet.",
+    desc: "A becserjésedett telek értéke akár 30-40%-kal is csökkenhet.",
   },
   {
     icon: Clock,
@@ -77,6 +77,8 @@ const problems = [
           <img
             :src="problemImage"
             alt="Becserjésedett meredek terep"
+            loading="lazy"
+            decoding="async"
             class="w-full h-[480px] object-cover"
           />
           <!-- Overlay gradient -->
@@ -92,7 +94,7 @@ const problems = [
             >
               <div class="w-2 h-2 rounded-full animate-pulse" style="background:#3FA34D"/>
               <span class="text-white text-sm font-medium" style="font-family:'Inter',sans-serif">
-                Kezeletlen terület – komoly kockázat
+                Kezeletlen terület - komoly kockázat
               </span>
             </div>
           </div>

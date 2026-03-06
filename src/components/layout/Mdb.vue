@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { Zap, Gauge, ShieldCheck, Wifi, ArrowRight } from "lucide-vue-next";
 
 // Image és adatok
-const machineImage = "/MDB_bozótirtás_területtisztítás1.jpg";
+const machineImage = "/MDB_bozótirtás_területtisztítás1.webp";
 
 const stats = [
   { icon: Gauge, value: "60°", label: "Max. lejtési szög" },
@@ -17,7 +17,7 @@ const specs = [
   ["Súly", "950 kg"],
   ["Vágószerv", "Nyeles / aprítós fej"],
   ["Hajtás", "Kettős hidrosztatikus"],
-  ["Kezelés", "Távirányítás – RC"],
+  ["Kezelés", "Távirányítás - RC"],
   ["Kezelő szükséges", "Nem kell a gép mellé"],
 ];
 </script>
@@ -42,7 +42,7 @@ const specs = [
           <div class="h-px w-6" :style="{ background: '#3FA34D' }"></div>
         </div>
         <h2 class="text-white uppercase mb-4" :style="{ fontFamily: 'Barlow Condensed, sans-serif', fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 800, lineHeight: 1.1 }">
-          MDB LV300 PRO – <span :style="{ color: '#3FA34D' }">Ipari Erő</span>
+          MDB LV300 PRO - <span :style="{ color: '#3FA34D' }">Ipari Erő</span>
         </h2>
         <p class="text-gray-400 max-w-xl mx-auto" :style="{ fontFamily: 'Inter, sans-serif', fontSize: '17px', lineHeight: 1.7 }">
           A világ egyik legkorszerűbb távirányítású terepkezelő gépe. Ott dolgozik, ahol embernek nem szabad.
@@ -54,7 +54,7 @@ const specs = [
         <!-- Left: Machine image with floating badges -->
         <div class="relative">
           <div class="relative rounded-2xl overflow-hidden" :style="{ boxShadow: '0 0 60px rgba(63,163,77,0.15), 0 20px 60px rgba(0,0,0,0.5)', border: '1px solid rgba(63,163,77,0.2)' }">
-            <img :src="machineImage" alt="MDB LV600 PRO professzionális terepkezelő gép" class="w-full h-[420px] lg:h-[500px] object-cover" />
+            <img :src="machineImage" alt="MDB LV300 PRO professzionális terepkezelő gép" loading="lazy" decoding="async" class="w-full h-[420px] lg:h-[500px] object-cover" />
             <div class="absolute inset-0" :style="{ background: 'linear-gradient(to top, rgba(15,26,18,0.6) 0%, transparent 60%)' }"></div>
 
             <!-- Machine badge -->
@@ -115,9 +115,9 @@ const specs = [
           <!-- Highlights -->
           <div class="flex flex-col gap-3 mb-8">
             <div v-for="(point, i) in [
-              'Kezelő nem kell a gép mellé – maximális biztonság',
-              'Gumilánc – nem károsítja a terepet',
-              'Hidraulikus karos vágószerv – precíz munka'
+              'Kezelő nem kell a gép mellé - maximális biztonság',
+              'Gumilánc - nem károsítja a terepet',
+              'Hidraulikus karos vágószerv - precíz munka'
             ]" :key="i" class="flex items-start gap-3">
               <div class="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" :style="{ background: 'rgba(63,163,77,0.15)' }">
                 <div class="w-2 h-2 rounded-full" :style="{ background: '#3FA34D' }"></div>

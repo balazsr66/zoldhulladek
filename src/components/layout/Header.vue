@@ -113,7 +113,14 @@ const scrollToSection = (href) => {
       <!-- Mobile -->
       <DialogRoot v-model:open="mobileOpen">
         <DialogTrigger as-child>
-          <button class="md:hidden text-white p-2">
+          <button
+            class="md:hidden text-white p-2"
+            type="button"
+            :aria-label="mobileOpen ? 'Menü bezárása' : 'Menü megnyitása'"
+            :aria-expanded="mobileOpen ? 'true' : 'false'"
+            aria-controls="mobile-nav-panel"
+            aria-haspopup="dialog"
+          >
             <Menu :size="28" />
           </button>
         </DialogTrigger>
@@ -124,6 +131,7 @@ const scrollToSection = (href) => {
           />
 
           <DialogContent
+            id="mobile-nav-panel"
             class="fixed top-0 right-0 h-full w-[300px] bg-[#1A1A1A] text-white p-6 flex flex-col gap-6 shadow-2xl"
           >
             <a

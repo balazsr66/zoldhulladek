@@ -1,14 +1,15 @@
-import { createRouter, createWebHistory } from 'vue-router'
+﻿import { createRouter, createWebHistory } from 'vue-router'
+import LandingPage from '@pages/landing.vue'
 
 const routes = [
   {
     name: 'index',
     path: '/',
-    component: ()=>import('@pages/landing.vue'),
-    meta:{
-      title: "Főoldal"
-    }
-  }
+    component: LandingPage,
+    meta: {
+      title: 'Főoldal',
+    },
+  },
 ]
 
 const router = createRouter({

@@ -26,7 +26,7 @@ const apiError = ref("");
 const contacts = [
   { icon: Phone, text: "+36 20 973 1980", href: "tel:+36209731980" },
   { icon: Mail, text: "okorendszer@gmail.com", href: "mailto:okorendszer@gmail.com" },
-  { icon: MapPin, text: "Budapest és környéke, egész Magyarország", href: "#" },
+  { icon: MapPin, text: "Budapest és környéke", href: "tel:+36209731980" },
 ];
 
 const badges = ["Ingyenes felmérés", "24h visszahívás", "Átlátható ár"];
@@ -99,7 +99,7 @@ const submitForm = async () => {
           </p>
 
           <div class="flex flex-col gap-4 mb-10">
-            <a v-for="(item,i) in contacts" :key="i" :href="item.href" class="flex items-center gap-3 text-gray-300 hover:text-white transition-colors lg:justify-start justify-center">
+            <a v-for="(item, i) in contacts" :key="i" :href="item.href" class="flex items-center gap-3 text-gray-300 hover:text-white transition-colors lg:justify-start justify-center">
               <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(63,163,77,0.12); border: 1px solid rgba(63,163,77,0.2);">
                 <component :is="item.icon" size="18" style="color: #3FA34D;" />
               </div>
@@ -124,15 +124,15 @@ const submitForm = async () => {
           <form @submit.prevent="submitForm" class="flex flex-col gap-4">
             <div class="grid sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-gray-400 text-sm mb-1.5">Neve *</label>
-                <input v-model="form.name" type="text" placeholder="Kiss János"
+                <label for="contact-name" class="block text-gray-400 text-sm mb-1.5">Neve *</label>
+                <input id="contact-name" v-model="form.name" type="text" placeholder="Kiss János"
                   class="w-full px-4 py-3 rounded-xl text-white placeholder-gray-600 text-sm outline-none transition-all"
                   :class="{ 'border-green-400 border-2': errors.name }"
                   style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);" />
               </div>
               <div>
-                <label class="block text-gray-400 text-sm mb-1.5">Telefonszám *</label>
-                <input v-model="form.phone" type="tel" placeholder="+36 30 ..."
+                <label for="contact-phone" class="block text-gray-400 text-sm mb-1.5">Telefonszám *</label>
+                <input id="contact-phone" v-model="form.phone" type="tel" placeholder="+36 30 ..."
                   class="w-full px-4 py-3 rounded-xl text-white placeholder-gray-600 text-sm outline-none transition-all"
                   :class="{ 'border-green-400 border-2': errors.phone }"
                   style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);" />
@@ -140,38 +140,38 @@ const submitForm = async () => {
             </div>
 
             <div>
-              <label class="block text-gray-400 text-sm mb-1.5">Email cím</label>
-              <input v-model="form.email" type="email" placeholder="email@example.com"
+              <label for="contact-email" class="block text-gray-400 text-sm mb-1.5">Email cím</label>
+              <input id="contact-email" v-model="form.email" type="email" placeholder="email@example.com"
                 class="w-full px-4 py-3 rounded-xl text-white placeholder-gray-600 text-sm outline-none transition-all"
                 :class="{ 'border-green-400 border-2': errors.email }"
                 style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);" />
             </div>
 
             <div>
-              <label class="block text-gray-400 text-sm mb-1.5">Terület mérete (hektár)</label>
-              <select v-model="form.area" class="w-full px-4 py-3 rounded-xl text-white text-sm outline-none transition-all cursor-pointer" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);">
+              <label for="contact-area" class="block text-gray-400 text-sm mb-1.5">Terület mérete (hektár)</label>
+              <select id="contact-area" v-model="form.area" class="w-full px-4 py-3 rounded-xl text-white text-sm outline-none transition-all cursor-pointer" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);">
                 <option value="">Válasszon...</option>
                 <option value="0.5">0.5 ha alatt</option>
-                <option value="1">0.5 – 1 ha</option>
-                <option value="3">1 – 3 ha</option>
-                <option value="5">3 – 5 ha</option>
+                <option value="1">0.5 - 1 ha</option>
+                <option value="3">1 - 3 ha</option>
+                <option value="5">3 - 5 ha</option>
                 <option value="10">5+ ha</option>
               </select>
             </div>
 
             <div>
-              <label class="block text-gray-400 text-sm mb-1.5">Leírás</label>
-              <textarea v-model="form.message" rows="4" placeholder="Terep típusa, növényzet, egyéb megjegyzés..."
+              <label for="contact-message" class="block text-gray-400 text-sm mb-1.5">Leírás</label>
+              <textarea id="contact-message" v-model="form.message" rows="4" placeholder="Terep típusa, növényzet, egyéb megjegyzés..."
                 class="w-full px-4 py-3 rounded-xl text-white placeholder-gray-600 text-sm outline-none resize-none transition-all"
                 style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);"></textarea>
             </div>
 
             <button type="submit" class="w-full py-4 rounded-xl text-white font-semibold flex items-center justify-center gap-2 transition-all duration-200 hover:scale-[1.02] active:scale-95 mt-2" style="background: linear-gradient(135deg, #3FA34D, #2d8a3a);">
-              <span v-if="!loading">Ajánlatot kérek – Ingyen</span>
+              <span v-if="!loading">Ajánlatot kérek - Ingyen</span>
               <span v-else>Elküldés...</span>
             </button>
 
-            <div v-if="success" class="mt-4 text-green-400 font-semibold animate-bounce text-center">✔ Sikeresen elküldve!</div>
+            <div v-if="success" class="mt-4 text-green-400 font-semibold animate-bounce text-center">✓ Sikeresen elküldve!</div>
             <div v-if="apiError" class="mt-2 text-red-500 font-medium text-center">{{ apiError }}</div>
           </form>
         </div>

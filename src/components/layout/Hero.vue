@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { ref, onMounted } from "vue"
 import { useMotion } from "@vueuse/motion"
 import { useElementVisibility } from "@vueuse/core"
@@ -15,7 +15,6 @@ const descRef = ref(null)
 const ctaRef = ref(null)
 const cardRef = ref(null)
 const scrollRef = ref(null)
-const bgRef = ref(null)
 
 // Features
 const features = [
@@ -39,25 +38,22 @@ onMounted(() => {
   setupAnim(ctaRef, { initial: { opacity: 0, y: 30 }, enter: { opacity: 1, y: 0, transition: { duration: 0.9, delay: 0.45, easing: appleEase } } })
   setupAnim(cardRef, { initial: { opacity: 0, y: 50 }, enter: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.6, easing: appleEase } } })
   setupAnim(scrollRef, { initial: { opacity: 0 }, enter: { opacity: 1, transition: { duration: 1, delay: 1.5, easing: appleEase } } })
-
-  // Parallax effect for background
-  if (bgRef.value) {
-    window.addEventListener("scroll", () => {
-      const offset = window.scrollY
-      bgRef.value.style.transform = `translateY(${offset * 0.3}px)` // 30% slower parallax
-    })
-  }
 })
 </script>
 
 <template>
-  <section ref="sectionRef" class="relative h-[85vh] min-h-[700px] w-full overflow-hidden flex items-center justify-center">
+  <section ref="sectionRef" class="relative h-[100vh] min-h-[700px] w-full overflow-hidden flex items-center justify-center">
 
-    <!-- Parallax Background -->
-    <div ref="bgRef" class="absolute inset-0 z-0 transition-transform will-change-transform">
+    <!-- Background -->
+    <div class="absolute inset-0 z-0">
       <img
-        src="/bozótirtás.jpg"
-        alt="MDB LV300 PRO working on steep terrain"
+        src="/bozótirtás.webp"
+        alt="MDB LV300 PRO robot bozótot írt"
+        width="1600"
+        height="1008"
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
         class="w-full h-full object-cover scale-105"
       />
       <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30 md:via-black/50 md:to-transparent" />
@@ -71,7 +67,7 @@ onMounted(() => {
       <div class="flex-1 max-w-2xl text-center md:text-left">
 
         <!-- Badge -->
-        <div ref="badgeRef" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#3FA34D]/20 border border-[#3FA34D]/30 backdrop-blur-sm mb-6">
+        <div ref="badgeRef" class="hidden items-center gap-2 px-4 py-2 rounded-full bg-[#3FA34D]/20 border border-[#3FA34D]/30 backdrop-blur-sm mb-6">
           <span class="w-2 h-2 rounded-full bg-[#3FA34D] animate-pulse" />
           <span class="text-[#3FA34D] font-bold text-sm tracking-widest uppercase">
             MDB LV300 PRO Technology
@@ -94,7 +90,7 @@ onMounted(() => {
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
           <button ref="ctaRef" class="bg-[#3FA34D] hover:bg-[#348a40] text-white px-8 py-4 rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(63,163,77,0.4)] hover:shadow-[0_0_30px_rgba(63,163,77,0.6)] transition-all transform hover:-translate-y-1 flex items-center gap-3">
-            Ingyenes felmérés
+            Kérjen ajánlatot!
             <ArrowRight :size="20" />
           </button>
 
@@ -109,7 +105,7 @@ onMounted(() => {
       </div>
 
       <!-- Right Floating Card -->
-      <div ref="cardRef" class="hidden md:block w-[380px] bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl relative group hover:border-[#3FA34D]/50 transition-colors">
+      <div ref="cardRef" class="hidden w-[380px] bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl relative group hover:border-[#3FA34D]/50 transition-colors">
         <div class="absolute -top-6 -right-6 w-24 h-24 bg-[#3FA34D]/20 rounded-full blur-2xl group-hover:bg-[#3FA34D]/30 transition-all" />
 
         <h3 class="text-2xl font-bold text-white mb-2">Azonnali kapacitás</h3>
