@@ -2,7 +2,8 @@
 import { ref } from "vue"
 import { AlertTriangle, TrendingDown, Clock, Shield } from "lucide-vue-next"
 
-const problemImage = "/nagy_bozot.webp"
+const problemImage = "/images/problem-1200.webp"
+const problemImageSrcset = "/images/problem-640.webp 640w, /images/problem-800.webp 800w, /images/problem-1200.webp 1200w"
 const problems = [
   {
     icon: AlertTriangle,
@@ -76,7 +77,11 @@ const problems = [
         <div class="relative rounded-2xl overflow-hidden shadow-2xl">
           <img
             :src="problemImage"
+            :srcset="problemImageSrcset"
+            sizes="(min-width: 1024px) 50vw, 100vw"
             alt="Becserjésedett meredek terep"
+            width="1200"
+            height="480"
             loading="lazy"
             decoding="async"
             class="w-full h-[480px] object-cover"

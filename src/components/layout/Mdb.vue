@@ -2,7 +2,8 @@
 import { Zap, Gauge, ShieldCheck, Wifi, ArrowRight } from "lucide-vue-next";
 
 // Image és adatok
-const machineImage = "/MDB_bozótirtás_területtisztítás1.webp";
+const machineImage = "/images/mdb-1200.webp";
+const machineImageSrcset = "/images/mdb-800.webp 800w, /images/mdb-1200.webp 1200w";
 
 const stats = [
   { icon: Gauge, value: "60°", label: "Max. lejtési szög" },
@@ -64,7 +65,17 @@ const scrollToContact = () => {
         <!-- Left: Machine image with floating badges -->
         <div class="relative">
           <div class="relative rounded-2xl overflow-hidden" :style="{ boxShadow: '0 0 60px rgba(63,163,77,0.15), 0 20px 60px rgba(0,0,0,0.5)', border: '1px solid rgba(63,163,77,0.2)' }">
-            <img :src="machineImage" alt="MDB LV300 PRO professzionális terepkezelő gép" loading="lazy" decoding="async" class="w-full h-[420px] lg:h-[500px] object-cover" />
+            <img
+              :src="machineImage"
+              :srcset="machineImageSrcset"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              alt="MDB LV300 PRO professzionális terepkezelő gép"
+              width="1200"
+              height="675"
+              loading="lazy"
+              decoding="async"
+              class="w-full h-[420px] lg:h-[500px] object-cover"
+            />
             <div class="absolute inset-0" :style="{ background: 'linear-gradient(to top, rgba(15,26,18,0.6) 0%, transparent 60%)' }"></div>
 
             <!-- Machine badge -->
@@ -146,4 +157,3 @@ const scrollToContact = () => {
     </div>
   </section>
 </template>
-

@@ -19,6 +19,7 @@ import {
 
 const isScrolled = ref(false)
 const mobileOpen = ref(false)
+let scrollRafId = null
 
 const navLinks = [
   { name: "Szolgáltatások", href: "#services" },
@@ -28,8 +29,39 @@ const navLinks = [
   { name: "GYIK", href: "#faq" },
 ]
 
+const syncScrolledState = () => {
+  const next = window.scrollY > 50
+  if (next !== isScrolled.value) {
+    isScrolled.value = next
+  }
+  scrollRafId = null
+}
+
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 50
+  if (scrollRafId !== null) return
+  scrollRafId = window.requestAnimationFrame(syncScrolledState)
+}
+
+const getHeaderHeight = () => {
+  const headerEl = document.querySelector('[data-site-header="true"]')
+  return headerEl instanceof HTMLElement ? headerEl.getBoundingClientRect().height : 70
+}
+
+const getEffectiveHeaderHeight = () => {
+  const currentHeight = getHeaderHeight()
+  const isDesktop = window.matchMedia("(min-width: 768px)").matches
+
+  // Desktopon a header py-6 -> py-4-re vált, ez kb. 16px különbség.
+  if (isDesktop && !isScrolled.value) {
+    return Math.max(currentHeight - 16, 0)
+  }
+
+  return currentHeight
+}
+
+const scrollToElementWithHeaderOffset = (el) => {
+  const targetTop = el.getBoundingClientRect().top + window.pageYOffset - getEffectiveHeaderHeight()
+  window.scrollTo({ top: targetTop, behavior: "smooth" })
 }
 
 const scrollToSection = (href) => {
@@ -37,11 +69,7 @@ const scrollToSection = (href) => {
   const el = document.getElementById(id)
   if (!el) return
 
-  const headerEl = document.querySelector('[data-site-header="true"]')
-  const headerHeight = headerEl instanceof HTMLElement ? headerEl.getBoundingClientRect().height : 70
-  const offset = el.getBoundingClientRect().top + window.pageYOffset - headerHeight
-
-  window.scrollTo({ top: offset, behavior: "smooth" })
+  scrollToElementWithHeaderOffset(el)
   mobileOpen.value = false
 }
 
@@ -51,12 +79,16 @@ const scrollToTop = () => {
 }
 
 onMounted(() => {
-  handleScroll()
-  window.addEventListener("scroll", handleScroll)
+  syncScrolledState()
+  window.addEventListener("scroll", handleScroll, { passive: true })
 })
 
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll)
+  if (scrollRafId !== null) {
+    window.cancelAnimationFrame(scrollRafId)
+    scrollRafId = null
+  }
 })
 </script>
 
@@ -64,9 +96,9 @@ onUnmounted(() => {
   <nav
     data-site-header="true"
     :class="[
-      'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+      'fixed top-0 left-0 right-0 z-50 transition-[background-color,padding,box-shadow] duration-300',
       isScrolled
-        ? 'bg-[#1A1A1A]/95 backdrop-blur-md py-0 md:py-4 shadow-lg border-b border-white/5'
+        ? 'bg-[#1A1A1A]/95 backdrop-blur-md py-0 md:py-4 shadow-lg'
         : 'bg-black py-0 md:py-6',
     ]"
   >

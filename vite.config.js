@@ -6,10 +6,10 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     vue(),
-    vueDevTools(),
+    ...(mode === 'development' ? [vueDevTools()] : []),
     tailwindcss(),
   ],
   resolve: {
@@ -21,4 +21,4 @@ export default defineConfig({
       '@public': fileURLToPath(new URL('./public', import.meta.url)),
     },
   },
-})
+}))
