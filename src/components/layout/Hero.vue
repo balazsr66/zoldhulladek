@@ -93,7 +93,7 @@ const scrollToContact = () => {
         </p>
 
         <!-- CTA Buttons -->
-        <div class="hero-reveal hero-reveal-3 mt-auto mb-14 pt-3 flex flex-col sm:flex-row items-center gap-8 md:gap-4 justify-center md:mt-0 md:mb-0 md:pt-0 md:justify-start">
+        <div class="hero-reveal hero-reveal-3 mt-auto mb-14 pt-3 flex flex-col sm:flex-row items-center gap-6 md:gap-4 justify-center md:mt-0 md:mb-0 md:pt-0 md:justify-start">
           <button
             type="button"
             @click="scrollToContact"
