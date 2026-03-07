@@ -14,6 +14,8 @@ const Footer = defineAsyncComponent(() => import('@/components/layout/Footer.vue
 
 const showDeferredSections = ref(false)
 const loadTriggerRef = ref(null)
+const DEFERRED_REVEAL_EVENT = "landing:reveal-deferred-sections"
+const deferredSectionIds = new Set(["services", "machine", "work", "process", "contact", "faq"])
 
 let observer = null
 
@@ -27,7 +29,25 @@ const revealDeferredSections = () => {
   }
 }
 
+const revealDeferredSectionsByEvent = () => {
+  revealDeferredSections()
+}
+
+const revealDeferredSectionsForCurrentHash = () => {
+  const hash = window.location.hash
+  if (!hash) return
+
+  const id = hash.slice(1)
+  if (deferredSectionIds.has(id)) {
+    revealDeferredSections()
+  }
+}
+
 onMounted(() => {
+  window.addEventListener(DEFERRED_REVEAL_EVENT, revealDeferredSectionsByEvent)
+  window.addEventListener("hashchange", revealDeferredSectionsForCurrentHash)
+  revealDeferredSectionsForCurrentHash()
+
   if ("IntersectionObserver" in window && loadTriggerRef.value) {
     observer = new IntersectionObserver(
       (entries) => {
@@ -46,6 +66,9 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener(DEFERRED_REVEAL_EVENT, revealDeferredSectionsByEvent)
+  window.removeEventListener("hashchange", revealDeferredSectionsForCurrentHash)
+
   if (observer) {
     observer.disconnect()
     observer = null

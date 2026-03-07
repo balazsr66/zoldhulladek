@@ -30,6 +30,7 @@ const navLinks = [
   { name: "Folyamat", href: "#process" },
   { name: "GYIK", href: "#faq" },
 ]
+const DEFERRED_REVEAL_EVENT = "landing:reveal-deferred-sections"
 
 const syncScrolledState = () => {
   const next = window.scrollY > 50
@@ -66,13 +67,32 @@ const scrollToElementWithHeaderOffset = (el) => {
   window.scrollTo({ top: targetTop, behavior: "smooth" })
 }
 
+const requestDeferredSectionsReveal = () => {
+  window.dispatchEvent(new CustomEvent(DEFERRED_REVEAL_EVENT))
+}
+
+const scrollToSectionById = (id, attempt = 0) => {
+  const el = document.getElementById(id)
+  if (el) {
+    scrollToElementWithHeaderOffset(el)
+    return
+  }
+
+  if (attempt === 0) {
+    requestDeferredSectionsReveal()
+  }
+
+  if (attempt >= 20) return
+
+  window.setTimeout(() => {
+    scrollToSectionById(id, attempt + 1)
+  }, 50)
+}
+
 const scrollToSection = (href) => {
   const id = href.replace("#", "")
-  const el = document.getElementById(id)
-  if (!el) return
-
-  scrollToElementWithHeaderOffset(el)
   mobileOpen.value = false
+  scrollToSectionById(id)
 }
 
 const scrollToTop = () => {

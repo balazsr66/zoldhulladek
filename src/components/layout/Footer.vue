@@ -6,16 +6,36 @@ const links = [
   { name: "Bozótirtás", href: "#services" },
   { name: "Zöldhulladék kezelés", href: "#services" },
 ]
+const DEFERRED_REVEAL_EVENT = "landing:reveal-deferred-sections"
 
-const scrollToSection = (href) => {
-  const id = href.replace("#", "")
+const requestDeferredSectionsReveal = () => {
+  window.dispatchEvent(new CustomEvent(DEFERRED_REVEAL_EVENT))
+}
+
+const scrollToSectionById = (id, attempt = 0) => {
   const el = document.getElementById(id)
-  if (!el) return
+  if (!el) {
+    if (attempt === 0) {
+      requestDeferredSectionsReveal()
+    }
+
+    if (attempt >= 20) return
+
+    window.setTimeout(() => {
+      scrollToSectionById(id, attempt + 1)
+    }, 50)
+    return
+  }
 
   const headerEl = document.querySelector('[data-site-header="true"]')
   const headerHeight = headerEl instanceof HTMLElement ? headerEl.getBoundingClientRect().height : 70
   const offset = el.getBoundingClientRect().top + window.pageYOffset - headerHeight
   window.scrollTo({ top: offset, behavior: "smooth" })
+}
+
+const scrollToSection = (href) => {
+  const id = href.replace("#", "")
+  scrollToSectionById(id)
 }
 
 const scrollToTop = () => {
