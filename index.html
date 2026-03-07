@@ -40,11 +40,60 @@
         min-height: 100vh;
         min-height: 100svh;
       }
+
+      /* Critical shell so the header/logo paints before Vue bootstraps */
+      #app-shell-header {
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: 40;
+        background: #000;
+      }
+
+      #app-shell-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        min-height: 56px;
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+      }
+
+      #app-shell-logo {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.5rem;
+        line-height: 1;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+
+      #app-shell-logo-accent {
+        color: #3FA34D;
+      }
+
+      @media (min-width: 768px) {
+        #app-shell-inner {
+          min-height: 88px;
+          padding: 0 24px;
+        }
+
+        #app-shell-logo {
+          font-size: 1.875rem;
+        }
+      }
     </style>
     <title>Telektisztítás és bozótirtás - zoldhulladek.com</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <nav id="app-shell-header">
+        <div id="app-shell-inner">
+          <a id="app-shell-logo" href="#">
+            ÖKO<span id="app-shell-logo-accent">RENDSZER</span>
+          </a>
+        </div>
+      </nav>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

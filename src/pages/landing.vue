@@ -16,8 +16,6 @@ const showDeferredSections = ref(false)
 const loadTriggerRef = ref(null)
 
 let observer = null
-let idleCallbackId = null
-let fallbackTimeoutId = null
 
 const revealDeferredSections = () => {
   if (showDeferredSections.value) return
@@ -26,16 +24,6 @@ const revealDeferredSections = () => {
   if (observer) {
     observer.disconnect()
     observer = null
-  }
-
-  if (idleCallbackId !== null && "cancelIdleCallback" in window) {
-    window.cancelIdleCallback(idleCallbackId)
-    idleCallbackId = null
-  }
-
-  if (fallbackTimeoutId !== null) {
-    window.clearTimeout(fallbackTimeoutId)
-    fallbackTimeoutId = null
   }
 }
 
@@ -47,32 +35,20 @@ onMounted(() => {
           revealDeferredSections()
         }
       },
-      { rootMargin: "700px 0px" }
+      { rootMargin: "250px 0px" }
     )
     observer.observe(loadTriggerRef.value)
+    return
   }
 
-  if ("requestIdleCallback" in window) {
-    idleCallbackId = window.requestIdleCallback(revealDeferredSections, { timeout: 1800 })
-  } else {
-    fallbackTimeoutId = window.setTimeout(revealDeferredSections, 900)
-  }
+  // Fallback for very old browsers without IntersectionObserver support.
+  revealDeferredSections()
 })
 
 onBeforeUnmount(() => {
   if (observer) {
     observer.disconnect()
     observer = null
-  }
-
-  if (idleCallbackId !== null && "cancelIdleCallback" in window) {
-    window.cancelIdleCallback(idleCallbackId)
-    idleCallbackId = null
-  }
-
-  if (fallbackTimeoutId !== null) {
-    window.clearTimeout(fallbackTimeoutId)
-    fallbackTimeoutId = null
   }
 })
 </script>

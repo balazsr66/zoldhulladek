@@ -37,15 +37,17 @@ const activeVideoIndex = ref(0)
 const activeVideoRef = ref(null)
 const videoLoadError = ref(false)
 const isMobileViewport = ref(false)
+const mobileViewportQuery = "(max-width: 767px)"
 let previousBodyOverflow = ""
+let mobileViewportMediaQuery = null
 
 const activeVideo = computed(() => videos[activeVideoIndex.value])
 const activeVideoSrc = computed(() =>
   isMobileViewport.value ? activeVideo.value.mobileSrc : activeVideo.value.desktopSrc
 )
 
-const syncViewport = () => {
-  isMobileViewport.value = window.matchMedia("(max-width: 767px)").matches
+const syncViewport = (eventOrQuery) => {
+  isMobileViewport.value = eventOrQuery.matches
 }
 
 const openVideoModal = (startIndex = 0) => {
@@ -54,6 +56,7 @@ const openVideoModal = (startIndex = 0) => {
 }
 
 const closeVideoModal = () => {
+  stopActiveVideo()
   isVideoModalOpen.value = false
 }
 
@@ -89,12 +92,18 @@ const playActiveVideo = async () => {
   if (!videoEl) return
 
   videoLoadError.value = false
-  videoEl.load()
-  videoEl.currentTime = 0
   const playPromise = videoEl.play()
   if (playPromise && typeof playPromise.catch === "function") {
     playPromise.catch(() => {})
   }
+}
+
+const stopActiveVideo = () => {
+  const videoEl = activeVideoRef.value
+  if (!videoEl) return
+
+  videoEl.pause()
+  videoEl.currentTime = 0
 }
 
 const handleVideoError = () => {
@@ -134,7 +143,7 @@ watch(isVideoModalOpen, (isOpen) => {
   window.removeEventListener("keydown", handleModalKeydown)
 })
 
-watch(activeVideoIndex, () => {
+watch(activeVideoSrc, () => {
   videoLoadError.value = false
   if (isVideoModalOpen.value) {
     playActiveVideo()
@@ -142,14 +151,34 @@ watch(activeVideoIndex, () => {
 })
 
 onMounted(() => {
-  syncViewport()
-  window.addEventListener("resize", syncViewport, { passive: true })
+  mobileViewportMediaQuery = window.matchMedia(mobileViewportQuery)
+  syncViewport(mobileViewportMediaQuery)
+
+  if (typeof mobileViewportMediaQuery.addEventListener === "function") {
+    mobileViewportMediaQuery.addEventListener("change", syncViewport)
+    return
+  }
+
+  if (typeof mobileViewportMediaQuery.addListener === "function") {
+    mobileViewportMediaQuery.addListener(syncViewport)
+  }
 })
 
 onBeforeUnmount(() => {
+  stopActiveVideo()
   document.body.style.overflow = previousBodyOverflow
   window.removeEventListener("keydown", handleModalKeydown)
-  window.removeEventListener("resize", syncViewport)
+
+  if (!mobileViewportMediaQuery) return
+
+  if (typeof mobileViewportMediaQuery.removeEventListener === "function") {
+    mobileViewportMediaQuery.removeEventListener("change", syncViewport)
+    return
+  }
+
+  if (typeof mobileViewportMediaQuery.removeListener === "function") {
+    mobileViewportMediaQuery.removeListener(syncViewport)
+  }
 })
 </script>
 
@@ -297,14 +326,16 @@ onBeforeUnmount(() => {
           Használja a bal és jobb nyilakat a videók közötti váltáshoz.
         </p>
 
-        <button
-          type="button"
-          class="absolute right-2 top-2 z-20 rounded-full bg-black/65 p-2 text-white hover:bg-black/80"
-          aria-label="Bezárás"
-          @click="closeVideoModal"
-        >
-          <X :size="20" />
-        </button>
+        <div class="mb-2 flex justify-end md:mb-0">
+          <button
+            type="button"
+            class="z-20 inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/65 text-white hover:bg-black/80 md:absolute md:right-2 md:top-2 md:h-auto md:w-auto md:p-2"
+            aria-label="Bezárás"
+            @click="closeVideoModal"
+          >
+            <X :size="20" />
+          </button>
+        </div>
 
         <button
           type="button"

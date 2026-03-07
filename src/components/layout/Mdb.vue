@@ -144,6 +144,17 @@ const scrollToContact = () => {
               </div>
               <span class="text-gray-300" :style="{ fontFamily: 'Inter, sans-serif', fontSize: '15px', lineHeight: 1.5 }">{{ point }}</span>
             </div>
+            <p
+              class="w-fit underline underline-offset-4 decoration-white/30"
+              :style="{
+                color: '#9CA3AF',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '13px',
+                fontWeight: 500
+              }"
+            >
+              <a href="https://mdbsrl.com/en/green-climber/lv-300-pro/" target="_blank">Tudjon meg többet!</a>
+            </p>
           </div>
 
           <a href="#contact" @click.prevent="scrollToContact" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-semibold transition-all duration-200 hover:scale-105"
