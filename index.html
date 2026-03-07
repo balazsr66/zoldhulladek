@@ -31,7 +31,7 @@
         margin: 0;
         background: #000;
         color: #fff;
-        font-family: "InterVariable", "Inter", sans-serif;
+        font-family: "InterVariable", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
         font-optical-sizing: auto;
         overflow-x: hidden;
         overscroll-behavior-y: none;
@@ -39,6 +39,52 @@
       #app {
         min-height: 100vh;
         min-height: 100svh;
+      }
+
+      [data-critical-header="true"][data-scrolled="false"],
+      [data-critical-header="true"][data-scrolled="true"] {
+        height: 44px;
+      }
+
+      [data-critical-logo="true"] {
+        display: inline-block;
+        line-height: 1;
+        white-space: nowrap;
+      }
+
+      [data-critical-hero="true"] {
+        position: relative;
+        min-height: 100vh;
+        min-height: 100svh;
+        padding-top: calc(env(safe-area-inset-top) + 4rem);
+      }
+
+      [data-critical-hero-bg="true"] {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+
+      [data-critical-hero-media="true"] {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      [data-critical-hero-img="true"] {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 76% 35%;
+        transform: scale(1.05);
+      }
+
+      [data-critical-hero-content="true"] {
+        position: relative;
+        z-index: 10;
+        min-height: calc(100vh - env(safe-area-inset-top) - 4rem);
+        min-height: calc(100svh - env(safe-area-inset-top) - 4rem);
       }
 
       /* Critical shell so the header/logo paints before Vue bootstraps */
@@ -52,7 +98,7 @@
       #app-shell-inner {
         max-width: 1280px;
         margin: 0 auto;
-        min-height: 56px;
+        min-height: 44px;
         padding: 0 16px;
         display: flex;
         align-items: center;
@@ -72,6 +118,23 @@
       }
 
       @media (min-width: 768px) {
+        [data-critical-header="true"][data-scrolled="false"] { height: 88px; }
+        [data-critical-header="true"][data-scrolled="true"] { height: 72px; }
+
+        [data-critical-hero="true"] {
+          height: 100vh;
+          min-height: 700px;
+          padding-top: 0;
+        }
+
+        [data-critical-hero-img="true"] {
+          object-position: center;
+        }
+
+        [data-critical-hero-content="true"] {
+          min-height: 0;
+        }
+
         #app-shell-inner {
           min-height: 88px;
           padding: 0 24px;

@@ -134,7 +134,7 @@ const scrollToContact = (attempt = 0) => {
   const currentHeaderHeight = headerEl instanceof HTMLElement ? headerEl.getBoundingClientRect().height : 70
   const isDesktop = window.matchMedia("(min-width: 768px)").matches
 
-  // Desktopon a header scroll közben kisebbre vált (md:py-6 -> md:py-4),
+  // Desktopon a header scroll közben kisebbre vált,
   // ezért az induló (nagyobb) magasságból korrigálunk.
   const effectiveHeaderHeight =
     isDesktop && window.scrollY <= 50
@@ -200,11 +200,12 @@ onBeforeUnmount(() => {
 
 <template>
   <section
-    class="relative w-full overflow-hidden flex items-center justify-center min-h-[100svh] md:h-[100vh] md:min-h-[700px] pt-[calc(env(safe-area-inset-top)+4rem)] md:pt-0"
+    data-critical-hero="true"
+    class="relative w-full overflow-hidden flex items-center justify-center min-h-screen min-h-[100svh] md:h-[100vh] md:min-h-[700px] pt-[calc(env(safe-area-inset-top)+4rem)] md:pt-0"
   >
     <!-- Background -->
-    <div class="absolute inset-0 z-0">
-      <picture class="block w-full h-full">
+    <div data-critical-hero-bg="true" class="absolute inset-0 z-0">
+      <picture data-critical-hero-media="true" class="block w-full h-full">
         <source
           media="(max-width: 767px)"
           srcset="/images/hero-mobile-540.webp 540w, /images/hero-mobile-828.webp 828w, /images/hero-mobile-960.webp 960w"
@@ -218,6 +219,7 @@ onBeforeUnmount(() => {
           type="image/webp"
         />
         <img
+          data-critical-hero-img="true"
           src="/images/hero-desktop-1280.webp"
           srcset="/images/hero-desktop-1024.webp 1024w, /images/hero-desktop-1280.webp 1280w, /images/hero-desktop-1600.webp 1600w"
           sizes="100vw"
@@ -227,7 +229,7 @@ onBeforeUnmount(() => {
           fetchpriority="high"
           loading="eager"
           decoding="async"
-          class="w-full h-full object-cover object-[76%_35%] md:object-center scale-105"
+          class="block w-full h-full object-cover object-[76%_35%] md:object-center scale-105"
         />
       </picture>
       <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/30 md:via-black/50 md:to-transparent" />
@@ -236,7 +238,8 @@ onBeforeUnmount(() => {
 
     <!-- Content -->
     <div
-      class="container relative z-10 mx-auto px-4 md:px-6 h-full min-h-[calc(100svh-env(safe-area-inset-top)-4rem)] md:min-h-0 flex flex-col md:flex-row items-center justify-center md:justify-between gap-10 md:gap-12 pt-14 pb-8 md:pt-20 md:pb-0"
+      data-critical-hero-content="true"
+      class="container relative z-10 mx-auto px-4 md:px-6 h-full min-h-[calc(100vh-env(safe-area-inset-top)-4rem)] min-h-[calc(100svh-env(safe-area-inset-top)-4rem)] md:min-h-0 flex flex-col md:flex-row items-center justify-center md:justify-between gap-10 md:gap-12 pt-14 pb-8 md:pt-20 md:pb-0"
     >
       <!-- Left Column -->
       <div class="flex flex-col flex-1 w-full max-w-2xl h-full min-h-[420px] pt-4 text-center md:text-left md:h-auto md:min-h-0 md:pt-0">
@@ -403,39 +406,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .hero-reveal {
-  opacity: 0;
-  transform: translateY(26px);
-  animation: hero-reveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.hero-reveal-1 {
-  animation-delay: 0.1s;
-}
-
-.hero-reveal-2 {
-  animation-delay: 0.25s;
-}
-
-.hero-reveal-3 {
-  animation-delay: 0.38s;
-}
-
-.hero-reveal-4 {
-  animation-delay: 1s;
-}
-
-@keyframes hero-reveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-reveal {
-    opacity: 1;
-    transform: none;
-    animation: none;
-  }
+  opacity: 1;
+  transform: none;
 }
 </style>

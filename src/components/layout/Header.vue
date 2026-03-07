@@ -54,7 +54,7 @@ const getEffectiveHeaderHeight = () => {
   const currentHeight = getHeaderHeight()
   const isDesktop = window.matchMedia("(min-width: 768px)").matches
 
-  // Desktopon a header py-6 -> py-4-re vált, ez kb. 16px különbség.
+  // Desktopon a header normál -> scrolled állapot között kb. 16px különbség van.
   if (isDesktop && !isScrolled.value) {
     return Math.max(currentHeight - 16, 0)
   }
@@ -117,15 +117,22 @@ onUnmounted(() => {
 <template>
   <nav
     data-site-header="true"
+    data-critical-header="true"
+    :data-scrolled="isScrolled ? 'true' : 'false'"
     :class="[
-      'fixed top-0 left-0 right-0 z-50 transition-[background-color,padding,box-shadow] duration-300',
+      'fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow] duration-300',
       isScrolled
-        ? 'bg-[#1A1A1A]/95 backdrop-blur-md py-0 md:py-4 shadow-lg'
-        : 'bg-black py-0 md:py-6',
+        ? 'bg-[#1A1A1A]/95 backdrop-blur-md h-11 md:h-[72px] shadow-lg'
+        : 'bg-black h-11 md:h-[88px]',
     ]"
   >
-    <div class="container mx-auto px-4 md:px-6 flex items-center justify-between">
-      <a href="#" @click.prevent="scrollToTop" class="text-2xl md:text-3xl font-bold tracking-tighter text-white">
+    <div class="container mx-auto px-4 md:px-6 h-full flex items-center justify-between">
+      <a
+        href="#"
+        @click.prevent="scrollToTop"
+        data-critical-logo="true"
+        class="text-2xl md:text-3xl font-bold tracking-tighter text-white leading-none whitespace-nowrap"
+      >
         ÖKO<span class="text-[#3FA34D]">RENDSZER</span>
       </a>
 
