@@ -1,5 +1,6 @@
 ﻿<script setup>
-import { ArrowRight, CheckCircle2, Play } from "lucide-vue-next"
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue"
+import { ArrowRight, CheckCircle2, ChevronLeft, ChevronRight, Play, X } from "lucide-vue-next"
 
 const features = [
   "Akár 60°-os lejtőn is",
@@ -7,6 +8,98 @@ const features = [
   "Biztonságos távvezérlés",
   "Teljes zöldhulladék zúzás",
 ]
+
+const videos = [
+  {
+    desktopSrc: "/videos/mdb_bozotirtas_video.mp4",
+    mobileSrc: "/videos/mobile/mdb_bozotirtas_video.mp4",
+    title: "Bozótirtás",
+  },
+  {
+    desktopSrc: "/videos/mdb_telektisztitas_video.mp4",
+    mobileSrc: "/videos/mobile/mdb_telektisztitas_video.mp4",
+    title: "Telektisztítás",
+  },
+  {
+    desktopSrc: "/videos/mdb_terulettisztitas_video.mp4",
+    mobileSrc: "/videos/mobile/mdb_terulettisztitas_video.mp4",
+    title: "Területtisztítás",
+  },
+  {
+    desktopSrc: "/videos/mdb_tisztitas_video.mp4",
+    mobileSrc: "/videos/mobile/mdb_tisztitas_video.mp4",
+    title: "Tisztítás",
+  },
+]
+
+const isVideoModalOpen = ref(false)
+const activeVideoIndex = ref(0)
+const activeVideoRef = ref(null)
+const videoLoadError = ref(false)
+const isMobileViewport = ref(false)
+let previousBodyOverflow = ""
+
+const activeVideo = computed(() => videos[activeVideoIndex.value])
+const activeVideoSrc = computed(() =>
+  isMobileViewport.value ? activeVideo.value.mobileSrc : activeVideo.value.desktopSrc
+)
+
+const syncViewport = () => {
+  isMobileViewport.value = window.matchMedia("(max-width: 767px)").matches
+}
+
+const openVideoModal = (startIndex = 0) => {
+  activeVideoIndex.value = startIndex
+  isVideoModalOpen.value = true
+}
+
+const closeVideoModal = () => {
+  isVideoModalOpen.value = false
+}
+
+const nextVideo = () => {
+  activeVideoIndex.value = (activeVideoIndex.value + 1) % videos.length
+}
+
+const prevVideo = () => {
+  activeVideoIndex.value = (activeVideoIndex.value - 1 + videos.length) % videos.length
+}
+
+const handleModalKeydown = (event) => {
+  if (!isVideoModalOpen.value) return
+
+  if (event.key === "Escape") {
+    closeVideoModal()
+    return
+  }
+
+  if (event.key === "ArrowRight") {
+    nextVideo()
+    return
+  }
+
+  if (event.key === "ArrowLeft") {
+    prevVideo()
+  }
+}
+
+const playActiveVideo = async () => {
+  await nextTick()
+  const videoEl = activeVideoRef.value
+  if (!videoEl) return
+
+  videoLoadError.value = false
+  videoEl.load()
+  videoEl.currentTime = 0
+  const playPromise = videoEl.play()
+  if (playPromise && typeof playPromise.catch === "function") {
+    playPromise.catch(() => {})
+  }
+}
+
+const handleVideoError = () => {
+  videoLoadError.value = true
+}
 
 const scrollToContact = () => {
   const el = document.getElementById("contact")
@@ -27,6 +120,37 @@ const scrollToContact = () => {
 
   window.scrollTo({ top: offset, behavior: "smooth" })
 }
+
+watch(isVideoModalOpen, (isOpen) => {
+  if (isOpen) {
+    previousBodyOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    playActiveVideo()
+    window.addEventListener("keydown", handleModalKeydown)
+    return
+  }
+
+  document.body.style.overflow = previousBodyOverflow
+  window.removeEventListener("keydown", handleModalKeydown)
+})
+
+watch(activeVideoIndex, () => {
+  videoLoadError.value = false
+  if (isVideoModalOpen.value) {
+    playActiveVideo()
+  }
+})
+
+onMounted(() => {
+  syncViewport()
+  window.addEventListener("resize", syncViewport, { passive: true })
+})
+
+onBeforeUnmount(() => {
+  document.body.style.overflow = previousBodyOverflow
+  window.removeEventListener("keydown", handleModalKeydown)
+  window.removeEventListener("resize", syncViewport)
+})
 </script>
 
 <template>
@@ -103,7 +227,11 @@ const scrollToContact = () => {
             <ArrowRight :size="20" />
           </button>
 
-          <button class="px-8 py-4 rounded-xl font-semibold text-white border border-white/20 bg-black/30 hover:bg-white/10 backdrop-blur-md transition-all flex items-center gap-3 group">
+          <button
+            type="button"
+            @click="openVideoModal(0)"
+            class="px-8 py-4 rounded-xl font-semibold text-white border border-white/20 bg-black/30 hover:bg-white/10 backdrop-blur-md transition-all flex items-center gap-3 group"
+          >
             <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-[#3FA34D] transition-colors">
               <Play :size="14" fill="currentColor" class="ml-0.5" />
             </div>
@@ -147,6 +275,83 @@ const scrollToContact = () => {
       <div class="w-0.5 h-12 bg-gradient-to-b from-[#3FA34D] to-transparent rounded-full" />
     </div>
   </section>
+
+  <Teleport to="body">
+    <div v-if="isVideoModalOpen" class="fixed inset-0 z-[120] flex items-center justify-center p-4 md:p-8">
+      <button
+        type="button"
+        class="absolute inset-0 bg-black/85 backdrop-blur-sm"
+        aria-label="Videó popup bezárása"
+        @click="closeVideoModal"
+      />
+
+      <div
+        class="relative z-10 w-full max-w-6xl rounded-2xl border border-white/15 bg-[#0F1113] p-3 md:p-4 shadow-2xl"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="hero-video-gallery-title"
+        aria-describedby="hero-video-gallery-desc"
+      >
+        <h2 id="hero-video-gallery-title" class="sr-only">Videó galéria</h2>
+        <p id="hero-video-gallery-desc" class="sr-only">
+          Használja a bal és jobb nyilakat a videók közötti váltáshoz.
+        </p>
+
+        <button
+          type="button"
+          class="absolute right-2 top-2 z-20 rounded-full bg-black/65 p-2 text-white hover:bg-black/80"
+          aria-label="Bezárás"
+          @click="closeVideoModal"
+        >
+          <X :size="20" />
+        </button>
+
+        <button
+          type="button"
+          class="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/65 p-2 text-white hover:bg-black/80"
+          aria-label="Előző videó"
+          @click="prevVideo"
+        >
+          <ChevronLeft :size="24" />
+        </button>
+
+        <button
+          type="button"
+          class="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/65 p-2 text-white hover:bg-black/80"
+          aria-label="Következő videó"
+          @click="nextVideo"
+        >
+          <ChevronRight :size="24" />
+        </button>
+
+        <div class="overflow-hidden rounded-xl bg-black">
+          <video
+            ref="activeVideoRef"
+            :key="activeVideoSrc"
+            :src="activeVideoSrc"
+            class="h-[42vh] w-full object-contain md:h-[72vh]"
+            controls
+            playsinline
+            preload="metadata"
+            autoplay
+            muted
+            @error="handleVideoError"
+          >
+            A böngészője nem támogatja a videó lejátszást.
+          </video>
+        </div>
+
+        <p v-if="videoLoadError" class="mt-3 px-2 text-xs text-amber-300 md:text-sm">
+          A videó nem tölthető be ebben a böngészőben.
+        </p>
+
+        <div class="mt-3 flex items-center justify-between px-2 text-xs text-gray-300 md:text-sm">
+          <span>{{ activeVideo.title }}</span>
+          <span>{{ activeVideoIndex + 1 }} / {{ videos.length }}</span>
+        </div>
+      </div>
+    </div>
+  </Teleport>
 </template>
 
 <style scoped>

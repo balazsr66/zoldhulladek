@@ -19,7 +19,7 @@ const services = [
   },
   {
     icon: Leaf,
-    title: "Zöldhulladék kezelés",
+    title: "Zöldhulladék",
     desc: "Az irtott anyag helyszíni aprítása, elszállítása vagy komposztálásra előkészítése.",
     features: ["Helyszíni aprítás", "Elszállítás", "Komposztálás"],
   },
@@ -34,7 +34,7 @@ const services = [
 const stats = [
   { value: "500+", label: "Elvégzett projekt" },
   { value: "60°", label: "Max. meredekség" },
-  { value: "48h", label: "Visszahívás" },
+  { value: "24h", label: "Visszahívás" },
   { value: "100%", label: "Elégedett ügyfél" },
 ]
 

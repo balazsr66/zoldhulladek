@@ -1,4 +1,4 @@
-<script setup>
+﻿<script setup>
 import { Facebook, Instagram, Phone, Mail, MapPin } from "lucide-vue-next"
 
 const links = [
@@ -60,6 +60,24 @@ const currentYear = new Date().getFullYear()
             >
               <Instagram :size="20" aria-hidden="true" focusable="false" />
             </a>
+
+            <a
+              href="https://www.tiktok.com/@okorendszermdb"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#3FA34D] transition-colors"
+              aria-label="TikTok oldal megnyitása"
+            >
+              <svg
+                aria-hidden="true"
+                focusable="false"
+                viewBox="0 0 24 24"
+                class="w-5 h-5"
+                fill="currentColor"
+              >
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.44h-3.4v13.2a2.9 2.9 0 1 1-2-2.75V9.26a6.33 6.33 0 1 0 5.46 6.27V8.84a8.17 8.17 0 0 0 4.77 1.52V6.69h-1.02Z" />
+              </svg>
+            </a>
           </div>
         </div>
 
@@ -114,12 +132,9 @@ const currentYear = new Date().getFullYear()
       <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-4">
         <p>&copy; {{ currentYear }} ÖkoRendszer. Minden jog fenntartva.</p>
 
-        <div class="flex gap-6">
+        <div>
           <a href="#" class="hover:text-white transition-colors">
             Adatvédelmi tájékoztató
-          </a>
-          <a href="#" class="hover:text-white transition-colors">
-            ÁSZF
           </a>
         </div>
       </div>

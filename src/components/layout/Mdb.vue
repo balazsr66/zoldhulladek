@@ -18,7 +18,6 @@ const specs = [
   ["Vágószerv", "Nyeles / aprítós fej"],
   ["Hajtás", "Kettős hidrosztatikus"],
   ["Kezelés", "Távirányítás - RC"],
-  ["Kezelő szükséges", "Nem kell a gép mellé"],
 ];
 
 const scrollToContact = () => {

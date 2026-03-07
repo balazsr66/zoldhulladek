@@ -106,7 +106,7 @@ const submitForm = async () => {
           </div>
 
           <h2 class="text-white uppercase mb-6" style="font-family: 'Barlow Condensed', sans-serif; font-size: clamp(38px, 5vw, 64px); font-weight: 800; line-height: 1.05;">
-            Indítsuk el <span style="color: #3FA34D;">a munkát!</span>
+            Kérjen  <span style="color: #3FA34D;">ingyenes</span> ajánlatot!
           </h2>
           <p class="text-gray-300 mb-10 max-w-lg lg:mx-0 mx-auto" style="font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.7;">
             Ingyenes helyszíni felmérés, kötelezettség nélküli ajánlat. 24 órán belül visszahívjuk és egyeztetünk.
@@ -121,7 +121,7 @@ const submitForm = async () => {
             </a>
           </div>
 
-          <div class="flex flex-wrap gap-3 lg:justify-start justify-center">
+          <div class="hidden lg:flex flex-wrap gap-3 lg:justify-start justify-center">
             <span v-for="badge in badges" :key="badge" class="px-4 py-2 rounded-xl text-sm" style="background: rgba(63,163,77,0.1); border: 1px solid rgba(63,163,77,0.25); color: #3FA34D; font-family: 'Inter', sans-serif; font-weight: 500;">
               ✓ {{ badge }}
             </span>
