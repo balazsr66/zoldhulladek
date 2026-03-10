@@ -76,7 +76,7 @@ const scrollToContact = (attempt = 0) => {
       </div>
 
       <!-- Main layout -->
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-center">
         <!-- Left: Machine image with floating badges -->
         <div class="relative">
           <div class="relative rounded-2xl overflow-hidden" :style="{ boxShadow: '0 0 60px rgba(63,163,77,0.15), 0 20px 60px rgba(0,0,0,0.5)', border: '1px solid rgba(63,163,77,0.2)' }">
@@ -89,12 +89,12 @@ const scrollToContact = (attempt = 0) => {
               height="675"
               loading="lazy"
               decoding="async"
-              class="w-full h-[420px] lg:h-[500px] object-cover"
+              class="w-full h-[340px] sm:h-[400px] lg:h-[480px] object-cover object-[30%_50%] lg:object-[22%_50%]"
             />
             <div class="absolute inset-0" :style="{ background: 'linear-gradient(to top, rgba(15,26,18,0.6) 0%, transparent 60%)' }"></div>
 
             <!-- Machine badge -->
-            <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+            <div class="absolute bottom-6 right-3 flex items-center justify-between">
               <div class="flex items-center gap-3 px-4 py-3 rounded-xl" :style="{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(16px)', border: '1px solid rgba(63,163,77,0.3)' }">
                 <div class="w-2 h-2 rounded-full animate-pulse" :style="{ background: '#3FA34D' }"></div>
                 <span class="text-white text-sm font-semibold" :style="{ fontFamily: 'Inter, sans-serif' }">MDB LV300 PRO</span>
@@ -107,9 +107,9 @@ const scrollToContact = (attempt = 0) => {
           <div v-for="(stat, i) in stats" :key="i" class="absolute hidden lg:flex"
             :class="[
               i === 0 ? '-top-4 -right-4' : '',
-              i === 1 ? 'top-1/3 -right-6' : '',
-              i === 2 ? '-bottom-4 -right-4' : '',
-              i === 3 ? 'top-1/3 -left-6' : ''
+              i === 1 ? 'top-9/16 -right-6' : '',
+              i === 2 ? '-bottom-3 -left-10' : '',
+              i === 3 ? 'top-1/5 -left-6' : ''
             ]"
           >
             <div class="flex items-center gap-2 px-4 py-3 rounded-xl" :style="{ background: 'rgba(15,26,18,0.9)', backdropFilter: 'blur(16px)', border: '1px solid rgba(63,163,77,0.35)', boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }">

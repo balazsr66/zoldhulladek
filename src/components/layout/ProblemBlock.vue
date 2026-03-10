@@ -2,8 +2,8 @@
 import { ref } from "vue"
 import { AlertTriangle, TrendingDown, Clock, Shield } from "lucide-vue-next"
 
-const problemImage = "/images/problem-1200.webp"
-const problemImageSrcset = "/images/problem-640.webp 640w, /images/problem-800.webp 800w, /images/problem-1200.webp 1200w"
+const problemImage = "/images/before-1536.webp"
+const problemImageSrcset = "/images/before-960.webp 960w, /images/before-1536.webp 1536w"
 const problems = [
   {
     icon: AlertTriangle,

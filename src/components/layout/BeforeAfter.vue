@@ -7,8 +7,11 @@ const isDragging = ref(false);
 const containerRef = ref(null);
 
 // images
-const beforeImg = "/images/before-1536.webp";
-const beforeImgSrcset = "/images/before-960.webp 960w, /images/before-1536.webp 1536w";
+const beforeImg = "/images/problem-1200.webp";
+const beforeImgSrcset =
+  "/images/problem-640.webp 640w, /images/problem-800.webp 800w, /images/problem-1024.webp 1024w, /images/problem-1200.webp 1200w, /images/problem-1600.webp 1600w, /images/problem-1920.webp 1920w";
+const beforeImgAvifSrcset =
+  "/images/problem-640.avif 640w, /images/problem-800.avif 800w, /images/problem-1024.avif 1024w, /images/problem-1200.avif 1200w, /images/problem-1600.avif 1600w, /images/problem-1920.avif 1920w";
 const afterImg = "/images/after-1280.webp";
 const afterImgSrcset = "/images/after-960.webp 960w, /images/after-1280.webp 1280w";
 
@@ -122,7 +125,7 @@ onBeforeUnmount(() => {
       <!-- Before/After slider -->
       <div
         ref="containerRef"
-        class="relative w-full max-w-5xl mx-auto h-[400px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl cursor-ew-resize select-none touch-none"
+        class="relative w-full max-w-5xl mx-auto h-[360px] md:h-[480px] rounded-3xl overflow-hidden shadow-2xl cursor-ew-resize select-none touch-none"
         @mousedown="handleDragStart"
         @touchstart="handleDragStart"
       >
@@ -146,20 +149,27 @@ onBeforeUnmount(() => {
 
         <!-- Before Image (Clipped) -->
         <div
-          class="absolute inset-0 w-full h-full overflow-hidden"
+          class="absolute inset-0 w-full h-full overflow-hidden bg-[#121212]"
           :style="{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }"
         >
-          <img
-            :src="beforeImg"
-            :srcset="beforeImgSrcset"
-            sizes="(min-width: 1280px) 1024px, 100vw"
-            alt="Before"
-            width="1536"
-            height="1152"
-            loading="lazy"
-            decoding="async"
-            class="w-full h-full object-cover"
-          />
+          <picture class="block w-full h-full">
+            <source
+              type="image/avif"
+              :srcset="beforeImgAvifSrcset"
+              sizes="(min-width: 1280px) 1024px, 100vw"
+            />
+            <img
+              :src="beforeImg"
+              :srcset="beforeImgSrcset"
+              sizes="(min-width: 1280px) 1024px, 100vw"
+              alt="Before"
+              width="1200"
+              height="480"
+              loading="lazy"
+              decoding="async"
+              class="block w-full h-full object-cover object-center"
+            />
+          </picture>
           <div class="absolute top-8 left-8 bg-black/60 backdrop-blur-md text-white px-4 py-2 rounded-lg font-bold text-sm uppercase tracking-wider">
             Előtte
           </div>
